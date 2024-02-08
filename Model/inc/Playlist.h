@@ -2,6 +2,7 @@
 #define PLAYLIST_H
 #include <iostream>
 #include <vector>
+#include <algorithm>
 #include "FileAbstract.h"
 using namespace std;
 
@@ -16,11 +17,12 @@ public:
 
     void addFile(const FileAbstract& file);
 
-    // void viewPlaylist();
+    void viewPlaylist();
 
-    string getName();
+    string getName() const;
 
     vector<FileAbstract> getFiles();
+    void deleteFile(const FileAbstract& file);
 };
 
 

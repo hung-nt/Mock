@@ -1,23 +1,20 @@
-#ifndef LOCAL_MEDIA_FILE_H
-#define LOCAL_MEDIA_FILE_H
-#include <iostream>
+#ifndef LOCAL_MEDIA_LIST_H
+#define LOCAL_MEDIA_LIST_H
+
 #include <vector>
+#include <algorithm>
 #include "FileAbstract.h"
-using namespace std;
 
-class LocalMediaList
-{
-private:
-    /* data */
-    vector<FileAbstract*> localFileList;
+class LocalMediaList {
 public:
-    LocalMediaList(/* args */);
-    ~LocalMediaList();
+    // Thêm các phương thức cần thiết để quản lý danh sách các file đa phương tiện cục bộ
+    void addFile(const FileAbstract& file);
+    void removeFile(const std::string& fileName);
+    void displayAllFiles() const;
+    const std::vector<FileAbstract>& getList() const;
 
-    vector<FileAbstract*> getList();
+private:
+    std::vector<FileAbstract> files;
 };
 
-
-
-
-#endif // ! LOCAL_MEDIA_FILE_H
+#endif // LOCAL_MEDIA_LIST_H

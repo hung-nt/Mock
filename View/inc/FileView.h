@@ -1,20 +1,16 @@
 #ifndef FILE_VIEW_H
 #define FILE_VIEW_H
+
 #include <iostream>
 #include "FileAbstract.h"
-#include "Mp3File.h"
-#include "Mp4File.h"
-using namespace std;
 
 class FileView
 {
-private:
-    /* data */
 public:
-    FileView(/* args */);
+    FileView();
     virtual ~FileView();
 
-    void showFile(FileAbstract *file);
+    virtual void showFile(const FileAbstract* file) = 0;
 };
 
 #endif // ! FILE_VIEW_H

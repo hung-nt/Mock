@@ -16,8 +16,14 @@ public:
 
     void setName(const string &n);
     void setPath(const string &p);
-    string getName();
+    string getName() const;
     string getPath();
+
+    bool operator==(const FileAbstract &other) const
+    {
+        // Đặt logic so sánh ở đây, ví dụ:
+        return this->name == other.name;
+    }
 };
 
 #endif // ! FILE_ABSTRACT_H

@@ -1,6 +1,7 @@
 #ifndef APP_CONTROLLER_H
 #define APP_CONTROLLER_H
 #include <iostream>
+#include <algorithm>
 #include "LocalMediaList.h"
 #include "Playlist.h"
 #include "MainMenuView.h"
@@ -46,7 +47,7 @@ private:
     /*******************************************************************************/
     /* functions implement for playWithYourPlayLists option */
     void createPlaylist();
-    void DeletePlaylist();
+    void deletePlaylist();
     void modifyPlaylist();
 
     /* functions implement for modifyPlaylist option */

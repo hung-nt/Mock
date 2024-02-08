@@ -1,4 +1,5 @@
 #include "AppController.h"
+using namespace std;
 
 AppController::AppController(/* args */)
 {
@@ -18,7 +19,6 @@ void AppController::run()
         switch (option)
         {
         case PLAY_WITH_LOCAL_MEDIA_FILES:
-
         {
             playWithLocalMediaFiles();
             break;
@@ -52,7 +52,6 @@ int AppController::optionInput()
 
 void AppController::playWithLocalMediaFiles()
 {
-
     int option;
     do
     {
@@ -88,6 +87,7 @@ void AppController::listAllLocalMediaFiles()
 {
     localMediaFilesView.displayAllFiles(localFileList);
 }
+
 void AppController::modifyFile()
 {
     int option;
@@ -128,16 +128,81 @@ void AppController::modifyFile()
 
 void AppController::showMetadata()
 {
-    cout << "show meta data" << endl;
+    if (localFileList.getList().empty()) {
+        cout << "No local media files available." << endl;
+        return;
+    }
+
+    cout << "Available local media files:" << endl;
+    for (const auto& file : localFileList.getList()) {
+        cout << "File: " << file->getName() << endl;
+        // Đây là nơi bạn sẽ hiển thị các thông tin metadata của file, ví dụ:
+        // cout << "Metadata: " << file->getMetadata() << endl;
+    }
 }
+
 void AppController::updateMetadata()
 {
-    cout << "update meta data" << endl;
+    size_t fileIndex;
+    do
+    {
+        localMediaFilesView.showModifyFileMenu();
+        fileIndex = static_cast<size_t>(optionInput());
+        if (fileIndex == 0 || fileIndex > localFileList.getList().size()) {
+            cout << "Invalid file index. Please enter a valid index!" << endl;
+        }
+    } while (fileIndex == 0 || fileIndex > localFileList.getList().size());
+
+    // Tiếp tục xử lý với fileIndex ở kiểu size_t
 }
+
 void AppController::addToPlaylist()
 {
-    cout << "add to playlist." << endl;
+    if (localFileList.getList().empty()) {
+        cout << "No local media files available." << endl;
+        return;
+    }
+
+    if (playlistVector.empty()) {
+        cout << "No playlists available. Please create a playlist first." << endl;
+        return;
+    }
+
+    cout << "Select a local media file to add to a playlist:" << endl;
+    for (size_t i = 0; i < localFileList.getList().size(); ++i) {
+        cout << i + 1 << ". " << localFileList.getList()[i]->getName() << endl;
+    }
+
+    size_t fileIndex;
+    cout << "Enter the index of the file: ";
+    cin >> fileIndex;
+    cin.ignore(); // Đảm bảo không có ký tự '\n' còn lại trong buffer sau khi nhập số
+
+    if (fileIndex == 0 || fileIndex > localFileList.getList().size()) {
+        cout << "Invalid file index. Please enter a valid index." << endl;
+        return;
+    }
+
+    cout << "Select a playlist to add the file to:" << endl;
+    showPlaylist();
+
+    size_t playlistIndex;
+    cout << "Enter the index of the playlist: ";
+    cin >> playlistIndex;
+    cin.ignore(); // Đảm bảo không có ký tự '\n' còn lại trong buffer sau khi nhập số
+
+    if (playlistIndex == 0 || playlistIndex > playlistVector.size()) {
+        cout << "Invalid playlist index. Please enter a valid index." << endl;
+        return;
+    }
+
+    // Thêm file vào playlist
+    playlistVector[playlistIndex - 1]->addFile(*localFileList.getList()[fileIndex - 1]);
+
+    cout << "File '" << localFileList.getList()[fileIndex - 1]->getName() << "' added to playlist '" << playlistVector[playlistIndex - 1]->getName() << "'." << endl;
 }
+
+
 
 void AppController::playWithYourPlayLists()
 {
@@ -155,7 +220,7 @@ void AppController::playWithYourPlayLists()
         }
         case DELETE_PLAYLIST:
         {
-            DeletePlaylist();
+            deletePlaylist();
             break;
         }
         case MODIFY_PLAYLIST:
@@ -180,14 +245,37 @@ void AppController::playWithYourPlayLists()
 void AppController::createPlaylist()
 {
     cout << "create a playlist." << endl;
+    string new_name;
+    cout << "Enter name of new playlist: ";
+    cin.ignore();
+    getline(cin, new_name);
+    playlistVector.push_back(new Playlist(new_name));
+    cout << "New playlist - " << new_name << " - Created" << endl;
 }
-void AppController::DeletePlaylist()
+
+void AppController::deletePlaylist()
 {
     cout << "delete a playlist." << endl;
+    string name;
+    cout << "Enter name of the playlist to delete: ";
+    cin.ignore();       
+    getline(cin, name);
+    auto it = find_if(playlistVector.begin(), playlistVector.end(), [name](const Playlist* playlist) {
+        return playlist->getName() == name;
+    });
+    if (it != playlistVector.end())
+    {
+        playlistVector.erase(it);
+        cout << "Playlist " << name << " has been deleted." << endl;
+    }
+    else
+    {
+        cout << "Playlist " << name << " does not exist." << endl;
+    }
 }
+
 void AppController::modifyPlaylist()
 {
-
     int option;
     do
     {
@@ -226,13 +314,86 @@ void AppController::modifyPlaylist()
 
 void AppController::showPlaylist()
 {
-    cout << "show playlist" << endl;
+    if (playlistVector.empty()) {
+        cout << "No playlists available." << endl;
+        return;
+    }
+
+    cout << "Available playlists:" << endl;
+    for (size_t i = 0; i < playlistVector.size(); ++i) {
+        cout << i+1 << ". " << playlistVector[i]->getName() << endl;
+    }
 }
+
 void AppController::addFile()
 {
-    cout << " add file to playlist" << endl;
+    if (playlistVector.empty()) {
+        cout << "No playlists available. Please create a playlist first." << endl;
+        return;
+    }
+
+    cout << "Select a playlist to add the file to:" << endl;
+    showPlaylist();
+
+    int playlistIndex;
+    cout << "Enter the index of the playlist: ";
+    cin >> playlistIndex;
+    cin.ignore(); // Đảm bảo không có ký tự '\n' còn lại trong buffer sau khi nhập số
+
+    if (playlistIndex <= 0 || playlistIndex > playlistVector.size()) {
+        cout << "Invalid playlist index. Please enter a valid index." << endl;
+        return;
+    }
+
+    string fileName;
+    cout << "Enter the name of the file to add: ";
+    getline(cin, fileName);
+
+    // Thêm file vào playlist
+    playlistVector[playlistIndex - 1]->addFile(FileAbstract(fileName, ""));
+
+    cout << "File '" << fileName << "' added to playlist '" << playlistVector[playlistIndex - 1]->getName() << "'." << endl;
 }
+
 void AppController::deleteFile()
 {
-    cout << "delete a file from playlist." << endl;
+    if (playlistVector.empty()) {
+        cout << "No playlists available. Please create a playlist first." << endl;
+        return;
+    }
+
+    cout << "Select a playlist to delete the file from:" << endl;
+    showPlaylist();
+
+    int playlistIndex;
+    cout << "Enter the index of the playlist: ";
+    cin >> playlistIndex;
+    cin.ignore(); // Đảm bảo không có ký tự '\n' còn lại trong buffer sau khi nhập số
+
+    if (playlistIndex <= 0 || playlistIndex > playlistVector.size()) {
+        cout << "Invalid playlist index. Please enter a valid index." << endl;
+        return;
+    }
+
+    cout << "Available files in playlist '" << playlistVector[playlistIndex - 1]->getName() << "':" << endl;
+    const vector<FileAbstract>& files = playlistVector[playlistIndex - 1]->getFiles();
+    for (size_t i = 0; i < files.size(); ++i) {
+        cout << i+1 << ". " << files[i].getName() << endl;
+    }
+
+    int fileIndex;
+    cout << "Enter the index of the file to delete: ";
+    cin >> fileIndex;
+    cin.ignore(); // Đảm bảo không có ký tự '\n' còn lại trong buffer sau khi nhập số
+
+    if (fileIndex <= 0 || fileIndex > files.size()) {
+        cout << "Invalid file index. Please enter a valid index." << endl;
+        return;
+    }
+
+    // Xóa file khỏi playlist
+    playlistVector[playlistIndex - 1]->deleteFile(files[fileIndex - 1]);
+
+    cout << "File '" << files[fileIndex - 1].getName() << "' deleted from playlist '" << playlistVector[playlistIndex - 1]->getName() << "'." << endl;
 }
+

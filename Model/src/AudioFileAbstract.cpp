@@ -1,24 +1,31 @@
-#include "FileAbstract.h"
+#include "LocalMediaList.h"
+#include <iostream>
 
-FileAbstract::FileAbstract() {}
+// Thêm các định nghĩa cho các phương thức mới trong LocalMediaList.h
 
-FileAbstract::FileAbstract(const string &n, const string &p) : name(n), path(p) {}
-
-void FileAbstract::setName(const string &n)
-{
-    this->name = n;
-}
-void FileAbstract::setPath(const string &p)
-{
-    this->path = p;
+void LocalMediaList::addFile(const FileAbstract& file) {
+    fileList.push_back(file);
 }
 
-string FileAbstract::getName()
-{
-    return name;
+void LocalMediaList::removeFile(const std::string& fileName) {
+    auto it = std::find_if(fileList.begin(), fileList.end(), [&](const FileAbstract& file) {
+        return file.getName() == fileName;
+    });
+    if (it != fileList.end()) {
+        fileList.erase(it);
+        std::cout << "File '" << fileName << "' removed from local media list." << std::endl;
+    } else {
+        std::cout << "File '" << fileName << "' not found in local media list." << std::endl;
+    }
 }
 
-string FileAbstract::getPath()
-{
-    return path;
+void LocalMediaList::displayAllFiles() const {
+    std::cout << "Local Media Files:" << std::endl;
+    for (const auto& file : fileList) {
+        std::cout << "- " << file.getName() << std::endl;
+    }
+}
+
+const std::vector<FileAbstract>& LocalMediaList::getList() const {
+    return fileList;
 }

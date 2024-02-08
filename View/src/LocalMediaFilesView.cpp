@@ -1,4 +1,6 @@
 #include "LocalMediaFilesView.h"
+#include "LocalMediaList.h"
+
 
 LocalMediaFilesView::LocalMediaFilesView(/* args */) {}
 
@@ -27,5 +29,10 @@ void LocalMediaFilesView::showModifyFileMenu(){
 void LocalMediaFilesView::displayAllFiles(LocalMediaList &list)
 {
     cout << "All media files:" << endl;
+    
+    vector<FileAbstract*> files = list.getList();
 
+    for (FileAbstract* file : files) {
+        cout << file->getName() << endl;
+    }
 }
