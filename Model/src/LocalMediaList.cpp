@@ -4,7 +4,9 @@
 // Thêm các định nghĩa cho các phương thức mới trong LocalMediaList.h
 
 void LocalMediaList::addFile(const FileAbstract& file) {
-    files.push_back(file);
+    // Tạo một con trỏ tới file và thêm nó vào vector
+    FileAbstract* filePtr = new FileAbstract(file); // Tạo một đối tượng FileAbstract mới bằng cách sao chép từ file
+    files.push_back(filePtr);
 }
 
 void LocalMediaList::removeFile(const std::string& fileName) {
@@ -22,10 +24,10 @@ void LocalMediaList::removeFile(const std::string& fileName) {
 void LocalMediaList::displayAllFiles() const {
     std::cout << "Local Media Files:" << std::endl;
     for (const auto& file : files) {
-        std::cout << "- " << file.getName() << std::endl;
+        std::cout << "- " << file -> getName() << std::endl;
     }
 }
 
-const std::vector<FileAbstract>& LocalMediaList::getList() const {
+const std::vector<FileAbstract *> LocalMediaList::getList() const {
     return files;
 }

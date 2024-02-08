@@ -15,6 +15,7 @@ private:
     /* Models */
     LocalMediaList localFileList;      // store file in local
     vector<Playlist *> playlistVector; // store user playlists
+    vector<FileAbstract> files;
 
     /* Views */
     MainMenuView mainMenuView;               // view for main menu

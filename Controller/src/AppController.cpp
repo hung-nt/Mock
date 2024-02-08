@@ -327,6 +327,7 @@ void AppController::showPlaylist()
 
 void AppController::addFile()
 {
+    vector<FileAbstract>::size_type fileIndex;
     if (playlistVector.empty()) {
         cout << "No playlists available. Please create a playlist first." << endl;
         return;
@@ -357,6 +358,7 @@ void AppController::addFile()
 
 void AppController::deleteFile()
 {
+    vector<FileAbstract>::size_type fileIndex;
     if (playlistVector.empty()) {
         cout << "No playlists available. Please create a playlist first." << endl;
         return;
@@ -381,7 +383,7 @@ void AppController::deleteFile()
         cout << i+1 << ". " << files[i].getName() << endl;
     }
 
-    int fileIndex;
+    // int fileIndex;
     cout << "Enter the index of the file to delete: ";
     cin >> fileIndex;
     cin.ignore(); // Đảm bảo không có ký tự '\n' còn lại trong buffer sau khi nhập số

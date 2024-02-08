@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <algorithm>
+#include <AppController.h>
 #include "FileAbstract.h"
 
 class LocalMediaList {
@@ -11,10 +12,10 @@ public:
     void addFile(const FileAbstract& file);
     void removeFile(const std::string& fileName);
     void displayAllFiles() const;
-    const std::vector<FileAbstract>& getList() const;
-
+    const std::vector<FileAbstract *> getList() const;
+    ~LocalMediaList();
 private:
-    std::vector<FileAbstract> files;
+    std::vector<FileAbstract *> files;
 };
 
 #endif // LOCAL_MEDIA_LIST_H

@@ -1,38 +1,39 @@
 #include "LocalMediaFilesView.h"
-#include "LocalMediaList.h"
 
-
-LocalMediaFilesView::LocalMediaFilesView(/* args */) {}
+LocalMediaFilesView::LocalMediaFilesView() {}
 
 LocalMediaFilesView::~LocalMediaFilesView() {}
 
-
-
 void LocalMediaFilesView::showMenu()
 {
-    cout << "----------------------------------------------------------------" <<endl;
-    cout << "PLAY WITH LOCAL MEDIA FILES MENU: " << endl;
-    cout << LIST_ALL_LOCAL_MEDIA_FILES << ". List all local media files." << endl;
-    cout << MODIFY_FILE << ". Modify file." << endl;
-    cout << LOCAL_MEDIA_FILES_BACK << ". Back." << endl;
+    std::cout << "----------------------------------------------------------------" << std::endl;
+    std::cout << "PLAY WITH LOCAL MEDIA FILES MENU: " << std::endl;
+    std::cout << LIST_ALL_LOCAL_MEDIA_FILES << ". List all local media files." << std::endl;
+    std::cout << MODIFY_FILE << ". Modify file." << std::endl;
+    std::cout << LOCAL_MEDIA_FILES_BACK << ". Back." << std::endl;
 }
 
 void LocalMediaFilesView::showModifyFileMenu(){
-    cout << "----------------------------------------------------------------" <<endl;
-    cout << "MODIFY FILE OPTION: " << endl;
-    cout << SHOW_METADATA << ". Show metadata." << endl;
-    cout << UPDATE_METADATA << ". Update metadata." << endl;
-    cout << ADD_TO_PLAYLIST << ". Add to playlist." << endl;
-    cout << MODIFY_FILE_BACK << ". Back." << endl;
+    std::cout << "----------------------------------------------------------------" << std::endl;
+    std::cout << "MODIFY FILE OPTION: " << std::endl;
+    std::cout << SHOW_METADATA << ". Show metadata." << std::endl;
+    std::cout << UPDATE_METADATA << ". Update metadata." << std::endl;
+    std::cout << ADD_TO_PLAYLIST << ". Add to playlist." << std::endl;
+    std::cout << MODIFY_FILE_BACK << ". Back." << std::endl;
 }
 
 void LocalMediaFilesView::displayAllFiles(LocalMediaList &list)
 {
-    cout << "All media files:" << endl;
+    std::cout << "All media files:" << std::endl;
     
-    vector<FileAbstract*> files = list.getList();
+    std::vector<FileAbstract*> files = list.getList();
 
     for (FileAbstract* file : files) {
-        cout << file->getName() << endl;
+        std::cout << file->getName() << std::endl;
     }
+}
+
+void LocalMediaFilesView::showFile(const FileAbstract* file) {
+    std::cout << "Showing file: " << file->getName() << std::endl;
+    // Thực hiện các thao tác khác cần thiết để hiển thị thông tin của file
 }
