@@ -85,7 +85,8 @@ void AppController::playWithLocalMediaFiles()
 
 void AppController::listAllLocalMediaFiles()
 {
-    localMediaFilesView.displayAllFiles(localFileList);
+    // localMediaFilesView.displayAllFiles(localFileList);
+    localFileList.displayAllFiles();
 }
 
 void AppController::modifyFile()

@@ -27,7 +27,6 @@ public:
     ~AppController();
 
     void run(); // app run
-private:
     /* get input option when has a menu */
     int optionInput();
     /*******************************************************************************/
