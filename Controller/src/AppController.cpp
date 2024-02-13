@@ -1,5 +1,6 @@
 #include "AppController.h"
 #include "LocalMediaList.h"
+#include <iostream>
 using namespace std;
 
 AppController::AppController(/* args */)
@@ -87,7 +88,8 @@ void AppController::playWithLocalMediaFiles()
 void AppController::listAllLocalMediaFiles()
 {
     // localMediaFilesView.displayAllFiles(localFileList);
-    localFileList.displayAllFiles();
+    // localFileList.displayAllFiles();
+    localMediaFilesView.displayAllFiles(localFileList.getList());
 }
 
 void AppController::modifyFile()

@@ -15,7 +15,7 @@ public:
     ~Mp3File();
 
     void setAlbum(const std::string& album);
-    std::string getAlbum() const; // Đặt const ở đây để chỉ ra rằng phương thức không làm thay đổi dữ liệu thành viên
+    std::string getAlbum() const;
 
 };
 
