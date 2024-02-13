@@ -1,19 +1,18 @@
+// LocalMediaList.cpp
 #include "LocalMediaList.h"
+#include <algorithm>
 #include <iostream>
 
-// Thêm các định nghĩa cho các phương thức mới trong LocalMediaList.h
-
 void LocalMediaList::addFile(const FileAbstract& file) {
-    // Tạo một con trỏ tới file và thêm nó vào vector
-    FileAbstract* filePtr = new FileAbstract(file); // Tạo một đối tượng FileAbstract mới bằng cách sao chép từ file
-    files.push_back(filePtr);
+    files.push_back(new FileAbstract(file)); // Thêm file mới vào danh sách
 }
 
 void LocalMediaList::removeFile(const std::string& fileName) {
-    auto it = std::find_if(files.begin(), files.end(), [&](const FileAbstract& file) {
-        return file.getName() == fileName;
+    auto it = std::find_if(files.begin(), files.end(), [&](FileAbstract* file) { // Sửa lambda thành nhận con trỏ
+        return file->getName() == fileName; // Sử dụng phép toán như trước với con trỏ
     });
     if (it != files.end()) {
+        delete *it;
         files.erase(it);
         std::cout << "File '" << fileName << "' removed from local media list." << std::endl;
     } else {
@@ -24,10 +23,16 @@ void LocalMediaList::removeFile(const std::string& fileName) {
 void LocalMediaList::displayAllFiles() const {
     std::cout << "Local Media Files:" << std::endl;
     for (const auto& file : files) {
-        std::cout << "- " << file -> getName() << std::endl;
+        std::cout << "- " << file->getName() << std::endl;
     }
 }
 
-const std::vector<FileAbstract *> LocalMediaList::getList() const {
+const std::vector<FileAbstract*> LocalMediaList::getList() const {
     return files;
+}
+
+LocalMediaList::~LocalMediaList() {
+    for (auto file : files) {
+        delete file;
+    }
 }

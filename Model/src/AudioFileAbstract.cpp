@@ -1,29 +1,13 @@
+// AudioFileAbstract.cpp
 #include "LocalMediaList.h"
-#include <iostream>
 
-void AppController::addFile() {
-    // Thay đổi kiểu dữ liệu của playlistIndex sang size_t
-    size_t playlistIndex;
-    cout << "Enter playlist index: ";
-    cin >> playlistIndex;
-    if (playlistIndex <= 0 || playlistIndex > playlistVector.size()) {
-        cout << "Invalid playlist index." << endl;
-        return;
-    }
-
-    // Thay đổi kiểu dữ liệu của fileIndex sang size_t
-    size_t fileIndex;
-    cout << "Enter file index: ";
-    cin >> fileIndex;
-    if (fileIndex <= 0 || fileIndex > files.size()) {
-        cout << "Invalid file index." << endl;
-        return;
-    }
+void LocalMediaList::addFile(const FileAbstract &file) {
+    files.push_back(new FileAbstract(file)); // Thêm file mới vào danh sách
 }
 
-void LocalMediaList::removeFile(const std::string& fileName) {
-    auto it = std::find_if(files.begin(), files.end(), [&](FileAbstract* file) { // Chỉnh sửa đối số của lambda
-        return file->getName() == fileName; // Sử dụng phép toán như trước với con trỏ
+void LocalMediaList::removeFile(const std::string &fileName) {
+    auto it = std::find_if(files.begin(), files.end(), [&](FileAbstract *file) {
+        return file->getName() == fileName;
     });
     if (it != files.end()) {
         delete *it;
@@ -34,10 +18,9 @@ void LocalMediaList::removeFile(const std::string& fileName) {
     }
 }
 
-
 void LocalMediaList::displayAllFiles() const {
     std::cout << "Local Media Files:" << std::endl;
-    for (const auto& file : files) {
+    for (const auto &file : files) {
         std::cout << "- " << file->getName() << std::endl;
     }
 }
@@ -47,7 +30,6 @@ const std::vector<FileAbstract *> LocalMediaList::getList() const {
 }
 
 LocalMediaList::~LocalMediaList() {
-    // Giải phóng bộ nhớ của các đối tượng FileAbstract được lưu trữ trong fileList
     for (auto file : files) {
         delete file;
     }

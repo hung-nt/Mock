@@ -22,16 +22,14 @@ void LocalMediaFilesView::showModifyFileMenu(){
     std::cout << MODIFY_FILE_BACK << ". Back." << std::endl;
 }
 
-void LocalMediaFilesView::displayAllFiles(LocalMediaList &list)
+void LocalMediaFilesView::displayAllFiles(const std::vector<FileAbstract*>& fileList)
 {
-    std::cout << "All media files:" << std::endl;
-    
-    std::vector<FileAbstract*> files = list.getList();
-
-    for (FileAbstract* file : files) {
-        std::cout << file->getName() << std::endl;
+    std::cout << "Local Media Files:" << std::endl;
+    for (const auto &file : fileList) {
+        std::cout << "- " << file->getName() << std::endl;
     }
 }
+
 
 void LocalMediaFilesView::showFile(const FileAbstract* file) {
     std::cout << "Showing file: " << file->getName() << std::endl;

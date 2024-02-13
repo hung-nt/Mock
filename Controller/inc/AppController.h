@@ -1,5 +1,7 @@
+// AppController.h
 #ifndef APP_CONTROLLER_H
 #define APP_CONTROLLER_H
+
 #include <iostream>
 #include <algorithm>
 #include "LocalMediaList.h"
@@ -7,50 +9,37 @@
 #include "MainMenuView.h"
 #include "LocalMediaFilesView.h"
 #include "PlaylistView.h"
+
 using namespace std;
 
-class AppController
-{
+class AppController {
 private:
-    /* Models */
-    LocalMediaList localFileList;      // store file in local
-    vector<Playlist *> playlistVector; // store user playlists
+    LocalMediaList localFileList;
+    vector<Playlist *> playlistVector;
     vector<FileAbstract> files;
-
-    /* Views */
-    MainMenuView mainMenuView;               // view for main menu
-    LocalMediaFilesView localMediaFilesView; // views for functions of local files
-    PlaylistView playlistView;               // views for functions of playlists
+    MainMenuView mainMenuView;
+    LocalMediaFilesView localMediaFilesView;
+    PlaylistView playlistView;
 
 public:
-    AppController(/* args */);
+    AppController();
     ~AppController();
 
-    void run(); // app run
-    /* get input option when has a menu */
+    void run();
     int optionInput();
-    /*******************************************************************************/
-    /* functions implement for main menu option*/
+
     void playWithLocalMediaFiles();
     void playWithYourPlayLists();
 
-    /*******************************************************************************/
-    /* functions implement for playWithLocalMediaFiles option */
     void listAllLocalMediaFiles();
     void modifyFile();
-
-    /* functions implement for modifyFile option */
     void showMetadata();
     void updateMetadata();
     void addToPlaylist();
 
-    /*******************************************************************************/
-    /* functions implement for playWithYourPlayLists option */
     void createPlaylist();
     void deletePlaylist();
     void modifyPlaylist();
-
-    /* functions implement for modifyPlaylist option */
     void showPlaylist();
     void addFile();
     void deleteFile();

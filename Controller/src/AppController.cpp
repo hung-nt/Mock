@@ -1,4 +1,5 @@
 #include "AppController.h"
+#include "LocalMediaList.h"
 using namespace std;
 
 AppController::AppController(/* args */)

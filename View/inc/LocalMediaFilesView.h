@@ -26,7 +26,7 @@ public:
 
     void showMenu();
     void showModifyFileMenu();
-    void displayAllFiles(LocalMediaFilesView& list);
+    void displayAllFiles(const std::vector<FileAbstract*>& fileList);
     void showFile(const FileAbstract* file) override;
 };
 

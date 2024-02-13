@@ -1,15 +1,13 @@
+// LocalMediaList.h
 #ifndef LOCAL_MEDIA_LIST_H
 #define LOCAL_MEDIA_LIST_H
 
 #include <vector>
 #include <algorithm>
-#include <AppController.h>
 #include "FileAbstract.h"
 
-class LocalMediaList
-{
+class LocalMediaList {
 public:
-    // Thêm các phương thức cần thiết để quản lý danh sách các file đa phương tiện cục bộ
     void addFile(const FileAbstract &file);
     void removeFile(const std::string &fileName);
     void displayAllFiles() const;
