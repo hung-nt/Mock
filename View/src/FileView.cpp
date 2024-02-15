@@ -1,6 +1,6 @@
-#include "FileView.h"
-#include "Mp3File.h"
-#include "Mp4File.h"
+#include "../inc/FileView.h"
+#include "../../Model/inc/Mp3File.h"
+#include "../../Model/inc/Mp4File.h"
 
 FileView::FileView() {}
 FileView::~FileView() {}

@@ -1,4 +1,4 @@
-#include "MainMenuView.h"
+#include "../inc/MainMenuView.h"
 
 MainMenuView::MainMenuView(/* args */) {}
 

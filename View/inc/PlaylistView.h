@@ -1,7 +1,7 @@
 #ifndef PLAYLIST_VIEW_H
 #define PLAYLIST_VIEW_H
 #include <iostream>
-#include "Playlist.h"
+#include "../../Model/inc/Playlist.h"
 using namespace std;
 
 enum PLAY_WITH_YOUR_PLAYLISTS_OPTION
@@ -24,9 +24,8 @@ enum MODIFY_PLAYLIST_OPTION
 class PlaylistView
 {
 private:
-    /* data */
 public:
-    PlaylistView(/* args */);
+    PlaylistView();
     ~PlaylistView();
 
     void showMenu();

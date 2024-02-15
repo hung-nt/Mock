@@ -1,6 +1,8 @@
-#include "main.h"
-
+#include <iostream>
+#include "./Controller/inc/AppController.h"
+using namespace std;
 int main(){
-    AppController appController;
-    appController.run();
+    AppController appContr;
+    appContr.run();
+    return 0;
 }

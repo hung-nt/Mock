@@ -1,4 +1,4 @@
-#include "LocalMediaFilesView.h"
+#include "../inc/LocalMediaFilesView.h"
 
 LocalMediaFilesView::LocalMediaFilesView() {}
 

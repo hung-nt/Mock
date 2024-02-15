@@ -1,6 +1,6 @@
-#include "PlaylistView.h"
+#include "../inc/PlaylistView.h"
 
-PlaylistView::PlaylistView(/* args */)
+PlaylistView::PlaylistView()
 {
 }
 

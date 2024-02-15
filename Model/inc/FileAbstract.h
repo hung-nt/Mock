@@ -21,7 +21,6 @@ public:
 
     bool operator==(const FileAbstract &other) const
     {
-        // Đặt logic so sánh ở đây, ví dụ:
         return this->name == other.name;
     }
 };

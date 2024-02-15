@@ -3,8 +3,7 @@
 
 #include <iostream>
 #include "FileView.h"
-#include "LocalMediaList.h"
-
+#include "../../Model/inc/LocalMediaList.h"
 enum LOCAL_MEDIA_FILES_OPTION {
     LIST_ALL_LOCAL_MEDIA_FILES = 1,
     MODIFY_FILE = 2,

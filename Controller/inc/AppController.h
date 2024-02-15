@@ -1,14 +1,13 @@
-// AppController.h
 #ifndef APP_CONTROLLER_H
 #define APP_CONTROLLER_H
 
 #include <iostream>
 #include <algorithm>
-#include "LocalMediaList.h"
-#include "Playlist.h"
-#include "MainMenuView.h"
-#include "LocalMediaFilesView.h"
-#include "PlaylistView.h"
+#include "../../Model/inc/LocalMediaList.h"
+#include "../../Model/inc/Playlist.h"
+#include "../../View/inc/MainMenuView.h"
+#include "../../View/inc/LocalMediaFilesView.h"
+#include "../../View/inc/PlaylistView.h"
 
 using namespace std;
 

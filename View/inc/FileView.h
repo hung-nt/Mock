@@ -2,7 +2,7 @@
 #define FILE_VIEW_H
 
 #include <iostream>
-#include "FileAbstract.h"
+#include "../../Model/inc/FileAbstract.h"
 
 class FileView
 {
