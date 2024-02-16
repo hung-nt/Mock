@@ -1,5 +1,5 @@
 #include <iostream>
-#include "./Controller/inc/AppController.h"
+#include "main.h"
 using namespace std;
 int main(){
     AppController appContr;

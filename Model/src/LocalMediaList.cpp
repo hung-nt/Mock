@@ -1,5 +1,6 @@
 // LocalMediaList.cpp
-#include "LocalMediaList.h"
+#include "../inc/LocalMediaList.h"
+#include "FileAbstract.h"
 #include <algorithm>
 #include <iostream>
 

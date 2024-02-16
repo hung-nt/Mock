@@ -17,7 +17,7 @@ public:
     void setName(const string &n);
     void setPath(const string &p);
     string getName() const;
-    string getPath();
+    string getPath() const;
 
     bool operator==(const FileAbstract &other) const
     {

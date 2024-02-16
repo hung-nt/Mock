@@ -1,4 +1,4 @@
-#include "Playlist.h"
+#include "../inc/Playlist.h"
 
 void Playlist::addFile(const FileAbstract& file) {
     files.push_back(file);
@@ -30,3 +30,19 @@ void Playlist::deleteFile(const FileAbstract& file) {
         std::cout << "File '" << file.getName() << "' not found in playlist '" << name << "'." << std::endl;
     }
 }
+
+// Triển khai hàm getName của lớp FileAbstract
+string FileAbstract::getName() const {
+    return name;
+}
+
+// Triển khai hàm getPath của lớp FileAbstract
+string FileAbstract::getPath() const {
+    return path;
+}
+
+// Triển khai hàm FileAbstract() của lớp FileAbstract
+FileAbstract::FileAbstract() {}
+
+// Triển khai hàm FileAbstract(const string&, const string&) của lớp FileAbstract
+FileAbstract::FileAbstract(const string& n, const string& p) : name(n), path(p) {}
