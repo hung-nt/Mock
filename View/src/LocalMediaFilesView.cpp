@@ -33,5 +33,4 @@ void LocalMediaFilesView::displayAllFiles(const std::vector<FileAbstract*>& file
 
 void LocalMediaFilesView::showFile(const FileAbstract* file) {
     std::cout << "Showing file: " << file->getName() << std::endl;
-    // Thực hiện các thao tác khác cần thiết để hiển thị thông tin của file
 }

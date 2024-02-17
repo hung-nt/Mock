@@ -3,6 +3,12 @@
 
 #include <iostream>
 #include <algorithm>
+#include <fstream>
+#include <filesystem>
+#include <vector>
+#include <string>
+#include <dirent.h>
+#include <sys/stat.h>
 #include "../../Model/inc/LocalMediaList.h"
 #include "../../Model/inc/Playlist.h"
 #include "../../View/inc/MainMenuView.h"
@@ -10,7 +16,6 @@
 #include "../../View/inc/PlaylistView.h"
 
 using namespace std;
-
 class AppController {
 private:
     LocalMediaList localFileList;

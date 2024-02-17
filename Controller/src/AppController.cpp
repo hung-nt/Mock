@@ -86,10 +86,40 @@ void AppController::playWithLocalMediaFiles()
     } while (option != LOCAL_MEDIA_FILES_BACK);
 }
 
-void AppController::listAllLocalMediaFiles()
-{
-    localMediaFilesView.displayAllFiles(localFileList.getList());
+void AppController::listAllLocalMediaFiles() {
+    std::string path;
+    std::cout << "Enter the directory path: ";
+    std::getline(std::cin, path);
+
+    DIR *dir;
+    struct dirent *ent;
+    if ((dir = opendir(path.c_str())) != NULL) {
+        while ((ent = readdir(dir)) != NULL) {
+            std::string filename = ent->d_name;
+            std::string fullpath = path + "/" + filename;
+            struct stat st;
+            if (stat(fullpath.c_str(), &st) == 0) {
+                if (S_ISREG(st.st_mode)) {
+                    std::string extension = filename.substr(filename.find_last_of('.') + 1);
+                    std::transform(extension.begin(), extension.end(), extension.begin(), ::tolower);
+                    if (extension == "mp3" || extension == "mp4") {
+                        std::ifstream file(fullpath);
+                        if (file) {
+                            std::cout << fullpath << std::endl;
+                            file.close();
+                        } else {
+                            std::cerr << "Unable to open file: " << fullpath << std::endl;
+                        }
+                    }
+                }
+            }
+        }
+        closedir(dir);
+    } else {
+        std::cerr << "Invalid directory path!" << std::endl;
+    }
 }
+
 
 void AppController::modifyFile()
 {
@@ -131,22 +161,46 @@ void AppController::modifyFile()
 
 void AppController::showMetadata()
 {
-    if (localFileList.getList().empty())
+    std::string path;
+    std::cout << "Enter the directory path: ";
+    std::getline(std::cin, path);
+
+    std::vector<std::string> mediaFiles;
+    for (const auto &entry : std::filesystem::directory_iterator(path)) {
+        if (entry.is_regular_file()) {
+            std::string extension = entry.path().extension().string();
+            if (extension == ".mp3" || extension == ".mp4") {
+                mediaFiles.push_back(entry.path().string());
+            }
+        }
+    }
+
+    if (mediaFiles.empty())
     {
         cout << "No local media files available." << endl;
         return;
     }
 
     cout << "Available local media files:" << endl;
-    for (const auto &file : localFileList.getList())
+    for (const auto &file : mediaFiles)
     {
-        cout << "File: " << file->getName() << endl;
+        cout << "File: " << file << endl;
     }
 }
 
 void AppController::updateMetadata()
 {
     showMetadata();
+
+    std::vector<std::string> mediaFiles;
+    for (const auto &entry : std::filesystem::directory_iterator(path)) {
+        if (entry.is_regular_file()) {
+            std::string extension = entry.path().extension().string();
+            if (extension == ".mp3" || extension == ".mp4") {
+                mediaFiles.push_back(entry.path().string());
+            }
+        }
+    }
 
     size_t fileIndex;
     do
@@ -158,23 +212,15 @@ void AppController::updateMetadata()
             cout << "Cancelled." << endl;
             return;
         }
-        if (fileIndex > localFileList.getList().size())
+        if (fileIndex > mediaFiles.size())
         {
             cout << "Invalid file index. Please enter a valid index!" << endl;
         }
-    } while (fileIndex > localFileList.getList().size());
+    } while (fileIndex > mediaFiles.size());
 
-    // Tiếp tục xử lý với fileIndex ở kiểu size_t
-    FileAbstract &selectedFile = *localFileList.getList()[fileIndex - 1];
-    // string newName, newPath;
-    // cout << "Enter the new name for the file: ";
-    // getline(cin, newName);
-    // cout << "Enter the new path for the file: ";
-    // getline(cin, newPath);
-
-    // selectedFile.setName(newName);
-    // selectedFile.setPath(newPath);
+    FileAbstract selectedFile = mediaFiles[fileIndex - 1];
 }
+
 
 void AppController::addToPlaylist()
 {

@@ -15,6 +15,7 @@ OBJS = $(patsubst $(SRC)/%.cpp,$(BUILD)/%.o,$(SRCS))
 
 # Include directories
 INCS_DIRS = -I$(SRC) -I$(SRC)/Controller/inc -I$(SRC)/Model/inc -I$(SRC)/View/inc
+LIBS = -lstdc++ -lm -lstdc++fs
 
 .PHONY: default
 default: build
@@ -51,7 +52,7 @@ valgrind: dirs $(BIN)/$(BIN_NAME)
 	@valgrind --tool=memcheck --leak-check=yes --show-reachable=yes --track-origins=yes --num-callers=20 $(BIN)/$(BIN_NAME)
 
 $(BIN)/$(BIN_NAME): $(OBJS)
-	@$(CXX) $(OBJS) -o $@
+	@$(CXX) $(OBJS) -o $@ ${LIBS}
 
 $(BUILD)/%.o: $(SRC)/%.cpp
 	@$(CXX) $(CXXFLAGS) $(INCS_DIRS) -c $< -o $@
